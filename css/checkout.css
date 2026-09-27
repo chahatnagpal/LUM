@@ -1,0 +1,245 @@
+/* ==============================================================================
+   MAISON SUCRE — CHECKOUT & ORDER CONFIRMATION STYLES
+   ============================================================================== */
+
+.checkout-section {
+  padding: var(--spacing-12) 0 var(--spacing-24);
+}
+
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: var(--spacing-12);
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .checkout-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-8);
+  }
+}
+
+/* --- Checkout Form Cards --- */
+.checkout-card {
+  background-color: var(--color-surface-white);
+  border: var(--border-delicate);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-8);
+  margin-bottom: var(--spacing-6);
+  box-shadow: var(--shadow-subtle);
+}
+
+.checkout-card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  margin-bottom: var(--spacing-6);
+  padding-bottom: var(--spacing-4);
+  border-bottom: var(--border-delicate);
+}
+
+.step-badge {
+  width: 28px;
+  height: 28px;
+  background-color: var(--color-espresso);
+  color: var(--color-bg-ivory);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+}
+
+.checkout-card-header h3 {
+  font-size: 1.375rem;
+  margin: 0;
+}
+
+/* Fulfillment Selector Radios */
+.fulfillment-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-6);
+}
+
+.fulfillment-radio-card {
+  border: var(--border-delicate);
+  border-radius: var(--radius-xs);
+  padding: var(--spacing-4);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  background-color: var(--color-bg-cream);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fulfillment-radio-card:hover {
+  border-color: var(--color-taupe);
+}
+
+.fulfillment-radio-card.active {
+  border-color: var(--color-espresso);
+  background-color: var(--color-surface-white);
+  box-shadow: 0 0 0 2px var(--color-espresso);
+}
+
+.fulfillment-radio-card .title {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.fulfillment-radio-card .desc {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+/* Date & Time Row */
+.form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-4);
+}
+
+@media (max-width: 640px) {
+  .form-row-2, .fulfillment-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Order Summary Box --- */
+.order-summary-sticky {
+  position: sticky;
+  top: 100px;
+}
+
+.summary-card {
+  background-color: var(--color-surface-white);
+  border: var(--border-delicate);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-8);
+  box-shadow: var(--shadow-card);
+}
+
+.summary-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-6);
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: var(--spacing-2);
+}
+
+.summary-item-row {
+  display: flex;
+  gap: var(--spacing-3);
+  align-items: center;
+  font-size: var(--font-size-sm);
+}
+
+.summary-item-img {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-xs);
+  object-fit: cover;
+  background-color: var(--color-bg-cream);
+  flex-shrink: 0;
+}
+
+.summary-item-info {
+  flex-grow: 1;
+}
+
+.summary-item-title {
+  font-family: var(--font-serif-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.summary-item-sub {
+  font-size: 0.6875rem;
+  color: var(--color-taupe);
+}
+
+.summary-item-price {
+  font-weight: 600;
+  font-family: var(--font-serif-display);
+  font-size: 1.125rem;
+  color: var(--color-text-primary);
+}
+
+/* --- Order Confirmation Page --- */
+.confirmation-container {
+  max-width: 720px;
+  margin: var(--spacing-12) auto var(--spacing-24);
+}
+
+.confirmation-card {
+  background-color: var(--color-surface-white);
+  border: var(--border-delicate);
+  border-radius: var(--radius-sm);
+  padding: clamp(2rem, 5vw, var(--spacing-12));
+  box-shadow: var(--shadow-card);
+  text-align: center;
+}
+
+.confirmation-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background-color: var(--color-status-confirmed-bg);
+  color: var(--color-status-confirmed);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin: 0 auto var(--spacing-6);
+  border: 1px solid rgba(13, 148, 136, 0.2);
+}
+
+.order-ref-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  background-color: var(--color-blush-light);
+  border: var(--border-delicate);
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-espresso);
+  margin: var(--spacing-4) 0 var(--spacing-6);
+}
+
+.confirmation-details-box {
+  background-color: var(--color-bg-cream);
+  border: var(--border-delicate);
+  border-radius: var(--radius-xs);
+  padding: var(--spacing-6);
+  text-align: left;
+  margin: var(--spacing-8) 0;
+}
+
+.receipt-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-3);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.receipt-row.total {
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  border-top: var(--border-delicate);
+  padding-top: var(--spacing-3);
+  margin-top: var(--spacing-4);
+}

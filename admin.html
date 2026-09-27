@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studio Admin Dashboard — Maison Sucre Haute Cake Studio</title>
+  <meta name="description" content="Dedicated administrative portal for Maison Sucre: orders management, products catalogue CRUD, categories, and custom cake commissions.">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/admin.css">
+
+  <!-- Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <!-- ========================================================================
+       1. ADMIN AUTHENTICATION GATE / LOGIN VIEW
+       ======================================================================== -->
+  <div class="admin-login-screen" id="admin-login-view">
+    <div class="admin-login-card">
+      <div class="admin-login-logo">Maison Sucre</div>
+      <div class="admin-login-sub">Studio Management Portal</div>
+
+      <p style="font-size: var(--font-size-xs); color: var(--color-taupe); margin-bottom: var(--spacing-6); line-height: 1.5;">
+        This administrative area is restricted to studio staff. Normal customer browsing is on the main store.
+      </p>
+
+      <form id="admin-login-form">
+        <div class="form-group" style="text-align: left;">
+          <label class="form-label" for="admin-passkey-input">Admin Studio Passkey</label>
+          <input type="password" id="admin-passkey-input" class="form-control" placeholder="Enter admin passkey..." value="maison2026" required autofocus>
+          <span class="helper-hint">Demo Presentation Passkey: <code style="font-family: var(--font-mono); font-weight: 700; color: var(--color-espresso);">maison2026</code></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: var(--spacing-2);">
+          Access Dashboard &rarr;
+        </button>
+      </form>
+
+      <div style="margin-top: var(--spacing-6); padding-top: var(--spacing-4); border-top: var(--border-delicate);">
+        <a href="index.html" class="btn-text" style="font-size: 0.6875rem;">&larr; Return to Customer Boutique</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       2. ADMIN DASHBOARD APP SHELL
+       ======================================================================== -->
+  <div class="admin-app-layout" id="admin-dashboard-view" style="display: none;">
+    
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar-header">
+        <div class="brand-logo">
+          <span class="logo-main" style="color: var(--color-bg-ivory); font-size: 1.25rem;">Maison Sucre</span>
+          <span class="logo-sub" style="color: var(--color-accent-gold);">Studio Admin</span>
+        </div>
+      </div>
+
+      <nav class="admin-sidebar-nav" aria-label="Admin Navigation">
+        <div class="admin-nav-item active" data-tab="overview">
+          <span>📊</span> Overview &amp; Stats
+        </div>
+        <div class="admin-nav-item" data-tab="orders">
+          <span>📦</span> Orders Management
+        </div>
+        <div class="admin-nav-item" data-tab="products">
+          <span>🎂</span> Products &amp; Cakes
+        </div>
+        <div class="admin-nav-item" data-tab="categories">
+          <span>📂</span> Categories
+        </div>
+        <div class="admin-nav-item" data-tab="custom-requests">
+          <span>✨</span> Custom Inquiries
+        </div>
+        <div class="admin-nav-item" data-tab="settings">
+          <span>⚙️</span> Supabase Settings
+        </div>
+      </nav>
+
+      <div class="admin-sidebar-footer">
+        <a href="index.html" class="btn-text" style="color: var(--color-taupe-light); border-bottom-color: rgba(255,255,255,0.2); font-size: 0.6875rem;" target="_blank">
+          View Live Website ↗
+        </a>
+        <button id="admin-logout-btn" class="btn btn-outline-light btn-sm" style="width: 100%;">
+          Log Out
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main class="admin-main">
+      
+      <!-- Top Bar -->
+      <header class="admin-topbar">
+        <div style="display: flex; align-items: center; gap: var(--spacing-4);">
+          <button id="admin-sidebar-toggle" class="icon-btn" style="display: none;" aria-label="Toggle menu">
+            ☰
+          </button>
+          <h2 style="font-size: 1.35rem; margin: 0;">Studio Atelier Workspace</h2>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: var(--spacing-4);">
+          <span id="admin-db-status-badge" class="connection-badge mock">
+            <span class="dot"></span> Local Mode
+          </span>
+        </div>
+      </header>
+
+      <!-- Content Body -->
+      <div class="admin-content-body">
+        
+        <!-- ==================================================================
+             TAB 1: OVERVIEW METRICS
+             ================================================================== -->
+        <div class="admin-tab-content" id="tab-overview">
+          
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-card-title">Total Revenue</div>
+              <div class="stat-card-value" id="metric-total-revenue">$0.00</div>
+              <div class="stat-card-sub">Recorded orders revenue</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card-title">Total Orders</div>
+              <div class="stat-card-value" id="metric-total-orders">0</div>
+              <div class="stat-card-sub">Orders in database</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card-title">Pending Orders</div>
+              <div class="stat-card-value" id="metric-pending-orders" style="color: var(--color-accent-terracotta);">0</div>
+              <div class="stat-card-sub">Require preparation / pickup</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card-title">Bespoke Inquiries</div>
+              <div class="stat-card-value" id="metric-custom-requests" style="color: var(--color-accent-gold);">0</div>
+              <div class="stat-card-sub">Custom cake commissions</div>
+            </div>
+          </div>
+
+          <!-- Quick Stats Panel -->
+          <div class="admin-panel">
+            <div class="admin-panel-header">
+              <h3>Recent Incoming Orders</h3>
+              <button class="btn btn-outline btn-sm" onclick="document.querySelector('[data-tab=orders]').click()">View All Orders &rarr;</button>
+            </div>
+            <div class="admin-table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Order Ref</th>
+                    <th>Customer</th>
+                    <th>Delivery Date</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-recent-orders-list">
+                  <!-- Injected via admin.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-6);">
+            <div class="stat-card">
+              <div class="stat-card-title">Active Cake Catalogue</div>
+              <div class="stat-card-value" id="metric-total-products">0</div>
+              <div class="stat-card-sub">Boutique cakes visible to customers</div>
+              <div style="margin-top: 16px;">
+                <button class="btn btn-primary btn-sm" onclick="document.querySelector('[data-tab=products]').click()">Manage Catalogue &rarr;</button>
+              </div>
+            </div>
+
+            <div class="stat-card" style="background-color: var(--color-blush-light);">
+              <div class="stat-card-title">Studio Quick Actions</div>
+              <div style="display: flex; gap: var(--spacing-3); flex-wrap: wrap; margin-top: 12px;">
+                <button class="btn btn-primary btn-sm" id="btn-quick-add-cake" onclick="document.querySelector('[data-tab=products]').click(); document.getElementById('btn-add-new-product').click();">+ Add New Cake</button>
+                <button class="btn btn-secondary btn-sm" onclick="document.querySelector('[data-tab=custom-requests]').click();">Review Bespoke Leads</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ==================================================================
+             TAB 2: ORDERS MANAGEMENT
+             ================================================================== -->
+        <div class="admin-tab-content" id="tab-orders" style="display: none;">
+          
+          <div class="admin-panel">
+            <div class="admin-panel-header">
+              <div>
+                <h3>Orders Ledger</h3>
+                <p style="font-size: var(--font-size-xs); color: var(--color-taupe); margin: 2px 0 0;">
+                  Update status, view customer notes, and review delivery schedules.
+                </p>
+              </div>
+              <button class="btn btn-outline btn-sm" onclick="window.admin.renderOrdersTable()">Refresh Orders ⟳</button>
+            </div>
+
+            <div class="admin-table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Order #</th>
+                    <th>Customer Info</th>
+                    <th>Fulfillment</th>
+                    <th>Delivery Date</th>
+                    <th>Total</th>
+                    <th>Status Selector</th>
+                    <th>Details</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-orders-tbody">
+                  <!-- Injected via admin.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ==================================================================
+             TAB 3: PRODUCTS MANAGEMENT (CRUD)
+             ================================================================== -->
+        <div class="admin-tab-content" id="tab-products" style="display: none;">
+          
+          <div class="admin-panel">
+            <div class="admin-panel-header">
+              <div>
+                <h3>Boutique Cake Catalogue</h3>
+                <p style="font-size: var(--font-size-xs); color: var(--color-taupe); margin: 2px 0 0;">
+                  Add cakes, change prices, toggle availability, and edit descriptions.
+                </p>
+              </div>
+              <button class="btn btn-primary btn-sm" id="btn-add-new-product">+ Add New Cake</button>
+            </div>
+
+            <div class="admin-table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Photo</th>
+                    <th>Cake Name &amp; Category</th>
+                    <th>Price</th>
+                    <th>Availability</th>
+                    <th>Featured</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-products-tbody">
+                  <!-- Injected via admin.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ==================================================================
+             TAB 4: CATEGORIES MANAGEMENT
+             ================================================================== -->
+        <div class="admin-tab-content" id="tab-categories" style="display: none;">
+          
+          <div class="admin-panel">
+            <div class="admin-panel-header">
+              <div>
+                <h3>Cake Categories</h3>
+                <p style="font-size: var(--font-size-xs); color: var(--color-taupe); margin: 2px 0 0;">
+                  Organize confectionery into boutique collections.
+                </p>
+              </div>
+              <button class="btn btn-primary btn-sm" id="btn-add-new-category">+ Add Category</button>
+            </div>
+
+            <div class="admin-table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Cover</th>
+                    <th>Category Name</th>
+                    <th>Slug</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-categories-tbody">
+                  <!-- Injected via admin.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ==================================================================
+             TAB 5: CUSTOM CAKE INQUIRIES (BESPOKE STUDIO LEADS)
+             ================================================================== -->
+        <div class="admin-tab-content" id="tab-custom-requests" style="display: none;">
+          
+          <div class="admin-panel">
+            <div class="admin-panel-header">
+              <div>
+                <h3>Bespoke Cake Commission Inquiries</h3>
+                <p style="font-size: var(--font-size-xs); color: var(--color-taupe); margin: 2px 0 0;">
+                  Personalized cake requests submitted through the Bespoke Studio page.
+                </p>
+              </div>
+              <button class="btn btn-outline btn-sm" onclick="window.admin.renderCustomRequestsTable()">Refresh Inquiries ⟳</button>
+            </div>
+
+            <div class="admin-table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Inquiry Ref</th>
+                    <th>Client Contact</th>
+                    <th>Occasion &amp; Guests</th>
+                    <th>Style &amp; Flavor Journey</th>
+                    <th>Target Event Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-custom-requests-tbody">
+                  <!-- Injected via admin.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ==================================================================
+             TAB 6: SETTINGS & SUPABASE CONFIGURATION
+             ================================================================== -->
+        <div class="admin-tab-content" id="tab-settings" style="display: none;">
+          
+          <div class="admin-panel" style="max-width: 760px;">
+            <div class="admin-panel-header">
+              <h3>Supabase Backend Configuration</h3>
+            </div>
+
+            <div style="padding: var(--spacing-6);">
+              <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-bottom: var(--spacing-6); line-height: 1.7;">
+                Connect this website to your real Supabase project by entering your project credentials below. 
+                Your settings are safely stored in your browser and used by all customer and admin actions.
+              </p>
+
+              <div class="form-group">
+                <label class="form-label" for="settings-supabase-url">Supabase Project URL</label>
+                <input type="url" id="settings-supabase-url" class="form-control" placeholder="https://your-project-id.supabase.co">
+                <span class="helper-hint">Found in Supabase Dashboard &rarr; Project Settings &rarr; API</span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="settings-supabase-key">Supabase Anon Public API Key</label>
+                <input type="text" id="settings-supabase-key" class="form-control" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
+                <span class="helper-hint">Found in Supabase Dashboard &rarr; Project Settings &rarr; API (anon public key)</span>
+              </div>
+
+              <div style="display: flex; gap: var(--spacing-4); margin-top: var(--spacing-6); flex-wrap: wrap;">
+                <button type="button" id="btn-save-supabase-settings" class="btn btn-primary">
+                  Save &amp; Connect Supabase
+                </button>
+                <button type="button" id="btn-seed-database" class="btn btn-secondary">
+                  Seed Live Supabase with Initial Cakes
+                </button>
+              </div>
+
+              <hr style="margin: var(--spacing-8) 0; border: none; border-top: var(--border-delicate);">
+
+              <h4 style="font-size: 1.125rem; margin-bottom: var(--spacing-2);">Local Studio Fallback Reset</h4>
+              <p style="font-size: var(--font-size-xs); color: var(--color-taupe); margin-bottom: var(--spacing-4);">
+                Reset local demo orders and catalogue products back to the default studio seed data.
+              </p>
+              <button type="button" id="btn-reset-mock-store" class="btn btn-outline btn-sm">
+                Reset Demo Studio Store
+              </button>
+
+              <div style="margin-top: var(--spacing-8); padding: var(--spacing-4); background-color: var(--color-bg-cream); border-radius: var(--radius-xs); font-size: var(--font-size-xs); color: var(--color-taupe); line-height: 1.6;">
+                <strong>SQL Schema File:</strong> You can find the complete PostgreSQL schema with all tables, constraints, RLS policies, and sample seed data in <code style="font-family: var(--font-mono); color: var(--color-espresso);">sql/schema.sql</code>. Copy and paste its content into your Supabase SQL Editor.
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- ========================================================================
+       MODAL 1: ORDER DETAILS MODAL
+       ======================================================================== -->
+  <div class="modal-backdrop" id="admin-order-modal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div>
+          <h3 style="font-size: 1.35rem;">Order Details: <span id="modal-order-number">#MS-0000</span></h3>
+          <span id="modal-order-status" class="badge badge-signature" style="margin-top: 4px;">New</span>
+        </div>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div style="background-color: var(--color-bg-cream); padding: var(--spacing-4); border-radius: var(--radius-xs); margin-bottom: var(--spacing-5);">
+          <div style="font-size: var(--font-size-sm); margin-bottom: 4px;">
+            <strong>Client:</strong> <span id="modal-customer-name">Camille Laurent</span> (<span id="modal-customer-phone">+1 555-0000</span>)
+          </div>
+          <div style="font-size: var(--font-size-sm); margin-bottom: 4px;">
+            <strong>Email:</strong> <span id="modal-customer-email">camille@example.com</span>
+          </div>
+          <div style="font-size: var(--font-size-sm); margin-bottom: 4px;">
+            <strong>Fulfillment:</strong> <span id="modal-fulfillment">Delivery — Address</span>
+          </div>
+          <div style="font-size: var(--font-size-sm);">
+            <strong>Scheduled:</strong> <span id="modal-date" style="color: var(--color-accent-terracotta); font-weight: 600;">Oct 04, 2026</span>
+          </div>
+        </div>
+
+        <div style="margin-bottom: var(--spacing-5);">
+          <label class="form-label">Special Inscription / Cake Notes:</label>
+          <div id="modal-notes" style="font-size: var(--font-size-sm); font-style: italic; background-color: var(--color-blush-light); padding: 8px 12px; border-radius: var(--radius-xs);">
+            "Happy Birthday"
+          </div>
+        </div>
+
+        <label class="form-label">Ordered Items &amp; Flavors:</label>
+        <div id="modal-order-items" style="margin-bottom: var(--spacing-4);">
+          <!-- Items injected dynamically -->
+        </div>
+
+        <div style="display: flex; justify-content: space-between; font-size: var(--font-size-md); font-weight: 700; border-top: var(--border-delicate); padding-top: var(--spacing-3);">
+          <span>Total Order Value:</span>
+          <span id="modal-order-total" style="color: var(--color-accent-gold);">$0.00</span>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-outline btn-sm modal-close-btn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL 2: ADD / EDIT PRODUCT MODAL
+       ======================================================================== -->
+  <div class="modal-backdrop" id="admin-product-modal">
+    <div class="modal-container" style="max-width: 620px;">
+      <div class="modal-header">
+        <h3 id="product-modal-title">Add New Boutique Cake</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+
+      <form id="admin-product-form">
+        <div class="modal-body">
+          
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label" for="product-form-name">Cake Name <span class="required">*</span></label>
+              <input type="text" id="product-form-name" class="form-control" placeholder="e.g., L'Aurore Pistachio & Rose" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="product-form-category">Category <span class="required">*</span></label>
+              <select id="product-form-category" class="form-control form-select" required>
+                <!-- Populated via admin.js -->
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label" for="product-form-price">Base Price ($) <span class="required">*</span></label>
+              <input type="number" step="0.01" min="0" id="product-form-price" class="form-control" placeholder="125.00" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="product-form-availability">Availability <span class="required">*</span></label>
+              <select id="product-form-availability" class="form-control form-select">
+                <option value="In Stock">In Stock</option>
+                <option value="Pre-Order Only">Pre-Order Only</option>
+                <option value="Sold Out">Sold Out</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="product-form-image">Image URL <span class="required">*</span></label>
+            <input type="url" id="product-form-image" class="form-control" placeholder="https://images.unsplash.com/..." required>
+            <div class="image-preview-box">
+              <img id="product-img-preview" src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80" alt="Preview">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="product-form-description">Full Story / Description <span class="required">*</span></label>
+            <textarea id="product-form-description" class="form-control" rows="3" placeholder="Describe the cake layers, crumb, and buttercream..." required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="product-form-tasting-notes">Flavor Tasting Notes</label>
+            <input type="text" id="product-form-tasting-notes" class="form-control" placeholder="e.g., Persian Rose, Roasted Bronte Pistachio, Tart Wild Raspberry">
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label" for="product-form-portion">Portion Guide</label>
+              <input type="text" id="product-form-portion" class="form-control" placeholder="6-inch • Serves 8-10">
+            </div>
+
+            <div class="form-group" style="display: flex; align-items: center; margin-top: 28px;">
+              <label style="display: inline-flex; align-items: center; gap: 8px; font-size: var(--font-size-xs); text-transform: uppercase; font-weight: 700; cursor: pointer;">
+                <input type="checkbox" id="product-form-featured" style="width: 18px; height: 18px; accent-color: var(--color-espresso);">
+                <span>Feature on Homepage</span>
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline btn-sm modal-close-btn">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">Save Product</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL 3: ADD CATEGORY MODAL
+       ======================================================================== -->
+  <div class="modal-backdrop" id="admin-category-modal">
+    <div class="modal-container" style="max-width: 500px;">
+      <div class="modal-header">
+        <h3>Add New Category</h3>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+
+      <form id="admin-category-form">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="cat-form-name">Category Name <span class="required">*</span></label>
+            <input type="text" id="cat-form-name" class="form-control" placeholder="e.g., Wedding & Bridal Tiers" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="cat-form-description">Description</label>
+            <textarea id="cat-form-description" class="form-control" rows="2" placeholder="Brief collection summary..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="cat-form-image">Cover Image URL</label>
+            <input type="url" id="cat-form-image" class="form-control" placeholder="https://images.unsplash.com/...">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="cat-form-order">Display Order</label>
+            <input type="number" id="cat-form-order" class="form-control" value="1">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline btn-sm modal-close-btn">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">Create Category</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules -->
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/admin.js"></script>
+
+</body>
+</html>

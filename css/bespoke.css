@@ -1,0 +1,117 @@
+/* ==============================================================================
+   MAISON SUCRE — BESPOKE CUSTOM CAKE STUDIO STYLES
+   ============================================================================== */
+
+.bespoke-page-header {
+  padding: var(--spacing-20) 0 var(--spacing-12);
+  background: radial-gradient(circle at 50% 30%, rgba(244, 228, 220, 0.5) 0%, transparent 70%),
+              var(--color-bg-cream);
+  border-bottom: var(--border-delicate);
+  text-align: center;
+}
+
+.bespoke-page-header h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  margin-bottom: var(--spacing-4);
+}
+
+.bespoke-page-header p {
+  max-width: 640px;
+  margin: 0 auto;
+  font-size: var(--font-size-md);
+}
+
+.bespoke-form-container {
+  max-width: 880px;
+  margin: var(--spacing-12) auto var(--spacing-24);
+  padding: 0 var(--spacing-6);
+}
+
+.bespoke-card {
+  background-color: var(--color-surface-white);
+  border: var(--border-delicate);
+  border-radius: var(--radius-sm);
+  padding: clamp(1.75rem, 4vw, var(--spacing-10));
+  box-shadow: var(--shadow-card);
+  margin-bottom: var(--spacing-8);
+}
+
+.bespoke-card-title {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-6);
+  padding-bottom: var(--spacing-4);
+  border-bottom: var(--border-delicate);
+}
+
+/* Visual Option Selectors */
+.visual-option-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-6);
+}
+
+.visual-option-card {
+  border: var(--border-delicate);
+  border-radius: var(--radius-xs);
+  padding: var(--spacing-4);
+  background-color: var(--color-bg-cream);
+  cursor: pointer;
+  text-align: center;
+  transition: all var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  min-height: 100px;
+}
+
+.visual-option-card .icon {
+  font-size: 1.5rem;
+  color: var(--color-accent-terracotta);
+}
+
+.visual-option-card .title {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--color-text-primary);
+}
+
+.visual-option-card .desc {
+  font-size: 0.6875rem;
+  color: var(--color-taupe);
+}
+
+.visual-option-card:hover {
+  border-color: var(--color-taupe);
+  background-color: var(--color-blush-light);
+  transform: translateY(-2px);
+}
+
+.visual-option-card.selected {
+  border-color: var(--color-espresso);
+  background-color: var(--color-espresso);
+  color: var(--color-bg-ivory);
+}
+
+.visual-option-card.selected .title,
+.visual-option-card.selected .icon {
+  color: var(--color-bg-ivory);
+}
+
+.visual-option-card.selected .desc {
+  color: var(--color-rose-nude);
+}
+
+/* Image reference hint */
+.helper-hint {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-top: 4px;
+}

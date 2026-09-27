@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maison Sucre — Haute Cake Studio & Artisanal Confections</title>
+  <meta name="description" content="Artisanal confections, sculptural wedding tiers, and bespoke celebration cakes crafted with organic botanicals and French pastry mastery.">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/home.css">
+
+  <!-- Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <aside class="announcement-bar" aria-label="Studio Announcement">
+    <span>✦ Bespoke Wedding &amp; Celebration Commissions Open for the Season • 48h Advance Notice</span>
+  </aside>
+
+  <!-- Site Header -->
+  <header class="site-header" id="site-header">
+    <div class="header-container">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="brand-logo" aria-label="Maison Sucre Home">
+        <span class="logo-main">Maison Sucre</span>
+        <span class="logo-sub">Haute Cake Studio • Soho</span>
+      </a>
+
+      <!-- Navigation Menu -->
+      <nav class="nav-menu" aria-label="Main Navigation">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="shop.html" class="nav-link">The Collection</a>
+        <a href="bespoke.html" class="nav-link">Bespoke Studio</a>
+        <a href="#about" class="nav-link">Our Story</a>
+        <a href="#gallery" class="nav-link">Gallery</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+      </nav>
+
+      <!-- Actions -->
+      <div class="header-actions">
+        <a href="shop.html" class="icon-btn" title="Search Cakes" aria-label="Search Cakes">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </a>
+
+        <button class="icon-btn cart-btn" data-open-cart aria-label="Shopping Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="badge-counter" style="display: none;">0</span>
+        </button>
+
+        <a href="admin.html" class="btn-admin-nav" title="Staff Portal">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          Studio Admin
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="menu-toggle" aria-label="Toggle Navigation Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-nav-backdrop"></div>
+  <div class="mobile-nav-drawer" aria-label="Mobile Navigation">
+    <div class="mobile-nav-header">
+      <div class="brand-logo">
+        <span class="logo-main" style="font-size: 1.35rem;">Maison Sucre</span>
+        <span class="logo-sub">Haute Cake Studio</span>
+      </div>
+      <button class="mobile-nav-close" style="font-size: 1.75rem; color: var(--color-text-secondary);">&times;</button>
+    </div>
+    <div class="mobile-nav-links">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="shop.html" class="nav-link">The Collection</a>
+      <a href="bespoke.html" class="nav-link">Bespoke Studio</a>
+      <a href="#about" class="nav-link">Our Story</a>
+      <a href="#gallery" class="nav-link">Visual Gallery</a>
+      <a href="#faq" class="nav-link">FAQ &amp; Sizing</a>
+      <a href="admin.html" class="nav-link" style="color: var(--color-accent-terracotta);">Admin Dashboard</a>
+    </div>
+    <div class="mobile-nav-footer">
+      <a href="shop.html" class="btn btn-primary" style="width: 100%;">Order a Cake</a>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero-section" aria-label="Hero Introduction">
+    <div class="container">
+      <div class="hero-grid">
+        
+        <!-- Left Editorial Copy -->
+        <div class="hero-content">
+          <div class="hero-badge-pill">
+            <span class="pill-dot"></span>
+            2026 Haute Confectionery Collection
+          </div>
+
+          <h1 class="hero-title">
+            Sculpted by hand. <br>
+            Flavored with <span class="emphasis">memory</span>.
+          </h1>
+
+          <p class="hero-description">
+            Artisanal confections crafted with organic botanical infusions, French pastry heritage, and contemporary sculptural aesthetics for unforgettable milestones.
+          </p>
+
+          <div class="hero-actions">
+            <a href="shop.html" class="btn btn-primary btn-lg">Explore Collection</a>
+            <a href="bespoke.html" class="btn btn-secondary btn-lg">Book a Bespoke Cake</a>
+          </div>
+
+          <div class="hero-trust-row">
+            <div class="hero-trust-item">
+              <span class="star">✦</span> 100% Organic Flours &amp; Pure Butter
+            </div>
+            <div class="hero-trust-item">
+              <span class="star">✦</span> Hand-Piped Botanicals
+            </div>
+            <div class="hero-trust-item">
+              <span class="star">✦</span> White-Glove Delivery
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Visual Showcase -->
+        <div class="hero-visual">
+          <div class="hero-image-frame">
+            <img src="https://images.unsplash.com/photo-1535141192574-5d4897c13136?auto=format&fit=crop&w=1000&q=85" alt="Sculptural Tiered Wedding Cake by Maison Sucre">
+          </div>
+
+          <!-- Floating Info Card -->
+          <div class="hero-floating-card">
+            <div class="card-label">Signature Creation</div>
+            <div class="card-title">Symphonie Blanche Two-Tier</div>
+            <div style="font-size: 0.75rem; color: var(--color-taupe); margin-top: 4px;">Tahitian Vanilla &amp; Peach Curd</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="section section-alt" id="categories" aria-label="Cake Categories">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Curated Collections</span>
+        <h2>Artisanal Expressions</h2>
+        <p>Explore our seasonal creations designed for intimate gatherings, grand weddings, and artistic celebrations.</p>
+      </div>
+
+      <div class="grid grid-4" id="home-categories-grid">
+        <!-- Dynamically rendered via JS/Supabase -->
+        <div class="category-card skeleton"></div>
+        <div class="category-card skeleton"></div>
+        <div class="category-card skeleton"></div>
+        <div class="category-card skeleton"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Collection -->
+  <section class="section" id="featured" aria-label="Featured Cakes">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Studio Signatures</span>
+        <h2>Bespoke Creations of the Season</h2>
+        <p>Each cake is baked to order from scratch using seasonal ingredients and organic botanicals.</p>
+      </div>
+
+      <div class="grid grid-4" id="home-featured-grid">
+        <!-- Dynamically loaded from Supabase/Store -->
+        <div class="product-card skeleton" style="height: 400px;"></div>
+        <div class="product-card skeleton" style="height: 400px;"></div>
+        <div class="product-card skeleton" style="height: 400px;"></div>
+        <div class="product-card skeleton" style="height: 400px;"></div>
+      </div>
+
+      <div class="text-center" style="margin-top: var(--spacing-12);">
+        <a href="shop.html" class="btn btn-outline btn-lg">View Full Catalogue &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Story & Philosophy Section -->
+  <section class="section section-blush" id="about" aria-label="About the Studio">
+    <div class="container">
+      <div class="story-grid">
+        
+        <div class="story-imagery">
+          <div class="story-img-main">
+            <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=85" alt="Chef piping artisanal pastry">
+          </div>
+          <div class="story-img-secondary">
+            <img src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&w=600&q=85" alt="Sugar floral craft details">
+          </div>
+          <div class="story-quote-card">
+            <em>"Baking is the poetry of precision and tenderness."</em>
+          </div>
+        </div>
+
+        <div class="story-content">
+          <span class="eyebrow eyebrow-no-star">Our Studio Philosophy</span>
+          <h2>Where Sculpture Meets Haute Pâtisserie</h2>
+          <p class="lead">
+            Founded in 2021 in the historic cast-iron district of Soho, Maison Sucre was conceived as an antidote to mass-produced bakery confectionery.
+          </p>
+          <p>
+            We view cake design as a tactile medium: delicate layers of slow-fermented chiffon, house-made fruit preserves, and velvet-textured Swiss meringue buttercream, crowned with hand-pressed edible botanicals and architectural ruffles.
+          </p>
+          <p>
+            We source our butter directly from Normandy, our vanilla beans from smallholder Tahitian farms, and our edible florals from certified organic Northeast gardens.
+          </p>
+          <div class="story-signature">
+            Éléonore de Saint-Germain <br>
+            <span style="font-family: var(--font-sans); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; font-style: normal; color: var(--color-taupe);">Chef &amp; Creative Director</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Bespoke Studio Highlight (Special Feature Banner) -->
+  <section class="section" aria-label="Bespoke Cake Studio">
+    <div class="container">
+      <div class="bespoke-banner">
+        <div class="bespoke-banner-grid">
+          
+          <div>
+            <span class="eyebrow eyebrow-no-star">Special Feature</span>
+            <h2 style="margin-bottom: var(--spacing-4);">Commission a Custom Cake</h2>
+            <p>
+              Looking for a one-of-a-kind cake tailored to your wedding, milestone birthday, or private event? Our bespoke studio collaborates closely with you from initial sketch to exquisite delivery.
+            </p>
+
+            <div class="bespoke-steps-list">
+              <div class="bespoke-step-item">
+                <span class="step-num">01.</span>
+                <p><strong>Design Consultation:</strong> Share your event date, theme, guest count, and flavor preferences.</p>
+              </div>
+              <div class="bespoke-step-item">
+                <span class="step-num">02.</span>
+                <p><strong>Flavor Tasting:</strong> Curate custom flavor pairings from our seasonal botanical pantry.</p>
+              </div>
+              <div class="bespoke-step-item">
+                <span class="step-num">03.</span>
+                <p><strong>Handcrafted Delivery:</strong> White-glove temperature-controlled transport directly to your venue.</p>
+              </div>
+            </div>
+
+            <a href="bespoke.html" class="btn btn-primary">Start Custom Request &rarr;</a>
+          </div>
+
+          <div class="bespoke-visual">
+            <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=800&q=85" alt="Custom Vintage Lambeth Cake">
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Visual Cake Gallery -->
+  <section class="section section-alt" id="gallery" aria-label="Visual Cake Gallery">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Visual Gallery</span>
+        <h2>Moments in Sugar &amp; Silk</h2>
+        <p>A glimpse into our recent atelier commissions, wedding centerpieces, and intimate celebrations.</p>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80" alt="Rose Pistachio Cake" loading="lazy">
+          <div class="gallery-overlay">
+            <h4>L'Aurore</h4>
+            <p>Rosewater &amp; Pistachio</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1535141192574-5d4897c13136?auto=format&fit=crop&w=600&q=80" alt="Sculptural Tier Cake" loading="lazy">
+          <div class="gallery-overlay">
+            <h4>Symphonie Blanche</h4>
+            <p>Bridal Architecture</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?auto=format&fit=crop&w=600&q=80" alt="Dark Chocolate Caramel Cake" loading="lazy">
+          <div class="gallery-overlay">
+            <h4>Noir Velvet</h4>
+            <p>Valrhona &amp; Salted Caramel</p>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1535254973040-607b474cb50d?auto=format&fit=crop&w=600&q=80" alt="Pressed Florals Cake" loading="lazy">
+          <div class="gallery-overlay">
+            <h4>Pressed Flora</h4>
+            <p>Lemon Verbena &amp; Garden Pansies</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Artisanal Ingredients & Sourcing -->
+  <section class="section" aria-label="Artisanal Ingredients">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">The Pantry</span>
+        <h2>Uncompromising Quality</h2>
+        <p>We source only the purest organic botanicals, cold-pressed citrus, and single-origin chocolates.</p>
+      </div>
+
+      <div class="grid grid-4">
+        <div class="ingredient-card">
+          <div class="ingredient-icon">✦</div>
+          <h4>Valrhona Chocolate</h4>
+          <p>70% Guanaja and Grand Cru single-plantation cacao for deep, nuanced chocolate crumb.</p>
+        </div>
+
+        <div class="ingredient-card">
+          <div class="ingredient-icon">✿</div>
+          <h4>Tahitian Vanilla</h4>
+          <p>Organic vanilla beans steeped slowly in whole milk to extract floral, bourbon undertones.</p>
+        </div>
+
+        <div class="ingredient-card">
+          <div class="ingredient-icon">❀</div>
+          <h4>Edible Pressed Flora</h4>
+          <p>Hand-harvested violas, pansies, and chamomile from organic heirloom gardens.</p>
+        </div>
+
+        <div class="ingredient-card">
+          <div class="ingredient-icon">❦</div>
+          <h4>Normandy Butter</h4>
+          <p>Slow-churned 84% butterfat dairy giving our Swiss meringue its legendary silky texture.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customer Praise / Testimonials -->
+  <section class="section section-blush" id="testimonials" aria-label="Client Testimonials">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Client Praise</span>
+        <h2>Echoes of Celebration</h2>
+        <p>Words from couples, planners, and connoisseurs who trusted us with their defining moments.</p>
+      </div>
+
+      <div class="testimonials-grid">
+        
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-quote">
+            "Maison Sucre created our 3-tier wedding cake in Tribeca. Not only was it a museum-worthy sculpture, but guests are still raving about the pistachio rose layers months later."
+          </div>
+          <div class="testimonial-author">
+            <div>
+              <div class="author-name">Genevieve &amp; Marcus</div>
+              <div class="author-role">Wedding at The Beekman</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-quote">
+            "The level of editorial refinement is unmatched in New York. The Madame Pompadour vintage cake made my 30th birthday feel like a romantic Paris dream."
+          </div>
+          <div class="testimonial-author">
+            <div>
+              <div class="author-name">Claire V. Sterling</div>
+              <div class="author-role">Art Director &amp; Stylist</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-quote">
+            "The ordering process was remarkably smooth and the white-glove temperature delivery arrived flawlessly on time. A true luxury studio."
+          </div>
+          <div class="testimonial-author">
+            <div>
+              <div class="author-name">Julian Montgomery</div>
+              <div class="author-role">Private Event Host</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Accordion -->
+  <section class="section" id="faq" aria-label="Frequently Asked Questions">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Information</span>
+        <h2>Frequently Asked Questions</h2>
+        <p>Everything you need to know regarding cake sizing, lead times, delivery, and dietary accommodations.</p>
+      </div>
+
+      <div class="faq-container">
+        
+        <div class="faq-item active">
+          <button class="faq-question" aria-expanded="true">
+            <span>How far in advance should I place my order?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>For signature collection cakes from our catalogue, we require a minimum of <strong>48 hours notice</strong> as all sponges and buttercreams are made fresh to order. For bespoke multi-tiered wedding cakes, we recommend booking 4 to 8 weeks in advance.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Do you offer delivery or studio pickup?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>We provide complimentary studio pickup from our Soho studio (148 Mercer St, NY) during business hours, as well as white-glove temperature-controlled courier delivery across Manhattan, Brooklyn, Queens, and the greater Tri-State area.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>How should I store and serve my cake?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Cakes should be kept refrigerated until 1 to 2 hours before serving. Buttercream cakes are at their absolute best texture and flavor when enjoyed at room temperature.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Do you accommodate gluten-free or vegan diets?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Yes, we offer gluten-free adaptations and eggless recipes for several of our signature cakes. Please note that while we take strict care, our kitchen handles wheat, nuts, and dairy products.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        
+        <div class="footer-brand">
+          <div class="brand-logo">
+            <span class="logo-main">Maison Sucre</span>
+            <span class="logo-sub">Haute Cake Studio</span>
+          </div>
+          <p>
+            Bespoke botanical &amp; contemporary sculptural cakes for life's most exquisite milestones. Handcrafted in small batches daily.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h5>The Atelier</h5>
+          <div class="footer-links">
+            <a href="shop.html">The Cake Collection</a>
+            <a href="bespoke.html">Custom Commission Studio</a>
+            <a href="#about">Studio Philosophy</a>
+            <a href="#gallery">Visual Gallery</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Studio Location</h5>
+          <div class="footer-links">
+            <span style="color: var(--color-taupe-light); font-size: var(--font-size-sm); line-height: 1.6;">
+              148 Mercer Street<br>
+              Soho, New York, NY 10012<br>
+              Tue – Sun: 10:00 AM – 6:30 PM
+            </span>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Studio Letters</h5>
+          <p style="font-size: var(--font-size-xs); color: var(--color-taupe-light); margin-bottom: 8px;">
+            Receive private tasting previews, seasonal menus, and holiday release dates.
+          </p>
+          <form class="newsletter-form" id="newsletter-form">
+            <input type="email" class="newsletter-input" placeholder="Your email address" required>
+            <button type="submit" class="newsletter-btn">Join</button>
+          </form>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Maison Sucre Haute Cake Studio. All rights reserved.</div>
+        <div style="display: flex; gap: var(--spacing-4);">
+          <a href="admin.html" style="color: var(--color-accent-gold);">Staff / Admin Access</a>
+          <a href="#site-header">Back to Top &uarr;</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Slide-Over Shopping Cart Drawer -->
+  <div class="cart-drawer-backdrop"></div>
+  <div class="cart-drawer" aria-label="Shopping Cart Drawer">
+    <div class="cart-drawer-header">
+      <h3>Your Cake Order</h3>
+      <button class="cart-drawer-close" style="font-size: 1.75rem; color: var(--color-text-muted);">&times;</button>
+    </div>
+
+    <div class="cart-items-container">
+      <!-- Injected dynamically via cart.js -->
+    </div>
+
+    <div class="cart-drawer-footer" style="display: none;">
+      <div class="cart-summary-row total">
+        <span>Order Subtotal:</span>
+        <span class="price drawer-subtotal-price">$0.00</span>
+      </div>
+      <p style="font-size: 0.6875rem; color: var(--color-taupe); margin-bottom: 16px;">Taxes and courier delivery calculated during checkout.</p>
+      <a href="checkout.html" class="btn btn-primary" style="width: 100%;">Proceed to Order Details</a>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules -->
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/home.js"></script>
+
+</body>
+</html>

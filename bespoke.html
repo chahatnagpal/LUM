@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bespoke Custom Cake Studio — Maison Sucre</title>
+  <meta name="description" content="Commission a one-of-a-kind sculptural cake for weddings, milestone celebrations, and brand events.">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/bespoke.css">
+
+  <!-- Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <aside class="announcement-bar" aria-label="Studio Announcement">
+    <span>✦ Bespoke Custom Commissions Now Booking for 2026–2027 Celebrations</span>
+  </aside>
+
+  <!-- Site Header -->
+  <header class="site-header" id="site-header">
+    <div class="header-container">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="brand-logo" aria-label="Maison Sucre Home">
+        <span class="logo-main">Maison Sucre</span>
+        <span class="logo-sub">Haute Cake Studio • Soho</span>
+      </a>
+
+      <!-- Navigation Menu -->
+      <nav class="nav-menu" aria-label="Main Navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="shop.html" class="nav-link">The Collection</a>
+        <a href="bespoke.html" class="nav-link active">Bespoke Studio</a>
+        <a href="index.html#about" class="nav-link">Our Story</a>
+        <a href="index.html#gallery" class="nav-link">Gallery</a>
+        <a href="index.html#faq" class="nav-link">FAQ</a>
+      </nav>
+
+      <!-- Actions -->
+      <div class="header-actions">
+        <button class="icon-btn cart-btn" data-open-cart aria-label="Shopping Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="badge-counter" style="display: none;">0</span>
+        </button>
+
+        <a href="admin.html" class="btn-admin-nav" title="Staff Portal">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          Studio Admin
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="menu-toggle" aria-label="Toggle Navigation Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-nav-backdrop"></div>
+  <div class="mobile-nav-drawer" aria-label="Mobile Navigation">
+    <div class="mobile-nav-header">
+      <div class="brand-logo">
+        <span class="logo-main" style="font-size: 1.35rem;">Maison Sucre</span>
+        <span class="logo-sub">Haute Cake Studio</span>
+      </div>
+      <button class="mobile-nav-close" style="font-size: 1.75rem; color: var(--color-text-secondary);">&times;</button>
+    </div>
+    <div class="mobile-nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="shop.html" class="nav-link">The Collection</a>
+      <a href="bespoke.html" class="nav-link active">Bespoke Studio</a>
+      <a href="index.html#about" class="nav-link">Our Story</a>
+      <a href="index.html#gallery" class="nav-link">Visual Gallery</a>
+      <a href="index.html#faq" class="nav-link">FAQ</a>
+      <a href="admin.html" class="nav-link" style="color: var(--color-accent-terracotta);">Admin Dashboard</a>
+    </div>
+  </div>
+
+  <!-- Page Header -->
+  <header class="bespoke-page-header">
+    <div class="container">
+      <span class="eyebrow">Haute Confectionery Commissions</span>
+      <h1 class="editorial-heading">Bespoke Cake Studio</h1>
+      <p class="lead">
+        Collaborate with our chef-artists to design a sculptural centerpiece designed around your aesthetic vision, color palette, and flavor journey.
+      </p>
+    </div>
+  </header>
+
+  <!-- Bespoke Form Container -->
+  <main class="bespoke-form-container">
+    
+    <form id="bespoke-form">
+      
+      <!-- Card 1: Occasion & Event Details -->
+      <div class="bespoke-card">
+        <h2 class="bespoke-card-title">
+          <span style="color: var(--color-accent-gold); font-size: 1.125rem;">01.</span>
+          The Occasion &amp; Sizing
+        </h2>
+
+        <div class="form-group">
+          <label class="form-label">Select Event Occasion</label>
+          <div class="visual-option-grid">
+            <div class="visual-option-card occasion-card selected" data-occasion="Wedding">
+              <span class="icon">💍</span>
+              <span class="title">Wedding &amp; Bridal</span>
+              <span class="desc">Tiered centerpieces</span>
+            </div>
+            <div class="visual-option-card occasion-card" data-occasion="Milestone Birthday">
+              <span class="icon">🎂</span>
+              <span class="title">Milestone Birthday</span>
+              <span class="desc">Artistic statement</span>
+            </div>
+            <div class="visual-option-card occasion-card" data-occasion="Anniversary">
+              <span class="icon">🥂</span>
+              <span class="title">Anniversary</span>
+              <span class="desc">Romantic heirloom</span>
+            </div>
+            <div class="visual-option-card occasion-card" data-occasion="Corporate / Brand Gala">
+              <span class="icon">🏛</span>
+              <span class="title">Brand Gala</span>
+              <span class="desc">Sculptural editorial</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Estimated Guest Count &amp; Portions</label>
+          <div class="visual-option-grid">
+            <div class="visual-option-card guest-card" data-guests="10-20 guests">
+              <span class="title">10–20 Guests</span>
+              <span class="desc">1–2 Tier Petite</span>
+            </div>
+            <div class="visual-option-card guest-card selected" data-guests="25-40 guests">
+              <span class="title">25–40 Guests</span>
+              <span class="desc">2-Tier Medium</span>
+            </div>
+            <div class="visual-option-card guest-card" data-guests="50-75 guests">
+              <span class="title">50–75 Guests</span>
+              <span class="desc">3-Tier Grand</span>
+            </div>
+            <div class="visual-option-card guest-card" data-guests="100+ guests">
+              <span class="title">100+ Guests</span>
+              <span class="desc">Multi-Tier Monumental</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label" for="bespoke-event-date">Target Event Date <span class="required">*</span></label>
+            <input type="date" id="bespoke-event-date" name="event_date" class="form-control" required>
+            <span class="helper-hint">Bespoke commissions require at least 5–7 days advance lead time.</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="bespoke-budget">Anticipated Budget Range</label>
+            <select id="bespoke-budget" name="budget_range" class="form-control form-select">
+              <option value="$250 - $450">$250 – $450 (Petite Atelier)</option>
+              <option value="$450 - $800" selected>$450 – $800 (Signature Two-Tier)</option>
+              <option value="$800 - $1,500">$800 – $1,500 (Grand Three-Tier)</option>
+              <option value="$1,500+">$1,500+ (Monumental / Multi-Tier Installation)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Aesthetic Styling & Flavor Journey -->
+      <div class="bespoke-card">
+        <h2 class="bespoke-card-title">
+          <span style="color: var(--color-accent-gold); font-size: 1.125rem;">02.</span>
+          Aesthetic Style &amp; Flavor Palette
+        </h2>
+
+        <div class="form-group">
+          <label class="form-label">Preferred Aesthetic Theme</label>
+          <div class="visual-option-grid">
+            <div class="visual-option-card style-card selected" data-style="Modern Sculptural">
+              <span class="title">Modern Sculptural</span>
+              <span class="desc">Concrete textures &amp; gold</span>
+            </div>
+            <div class="visual-option-card style-card" data-style="Pressed Botanicals">
+              <span class="title">Pressed Botanicals</span>
+              <span class="desc">Organic wildflower art</span>
+            </div>
+            <div class="visual-option-card style-card" data-style="Vintage Lambeth">
+              <span class="title">Vintage Lambeth</span>
+              <span class="desc">Intricate rococo piping</span>
+            </div>
+            <div class="visual-option-card style-card" data-style="Minimalist Silk Velvet">
+              <span class="title">Silk Velvet Minimal</span>
+              <span class="desc">Clean lines &amp; wafer peonies</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="bespoke-flavor">Flavor Palette &amp; Fillings <span class="required">*</span></label>
+          <textarea id="bespoke-flavor" name="flavor_preference" class="form-control" rows="3" placeholder="e.g., Tahitian Vanilla bean with wild blackberry compote, or Earl Grey lavender with salted honeycomb buttercream..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="bespoke-reference">Moodboard / Reference Image Link (Optional)</label>
+          <input type="url" id="bespoke-reference" name="reference_image_url" class="form-control" placeholder="https://pinterest.com/... or https://instagram.com/...">
+          <span class="helper-hint">Share a link to a Pinterest board, dress fabric, or floral palette.</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="bespoke-notes">Additional Vision &amp; Dietary Requirements</label>
+          <textarea id="bespoke-notes" name="notes" class="form-control" rows="3" placeholder="Tell us about your venue, color palette, cake table setting, or allergy accommodations..."></textarea>
+        </div>
+      </div>
+
+      <!-- Card 3: Contact Information -->
+      <div class="bespoke-card">
+        <h2 class="bespoke-card-title">
+          <span style="color: var(--color-accent-gold); font-size: 1.125rem;">03.</span>
+          Client Contact Details
+        </h2>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label" for="bespoke-name">Full Name <span class="required">*</span></label>
+            <input type="text" id="bespoke-name" name="customer_name" class="form-control" placeholder="e.g., Genevieve Dubois" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="bespoke-phone">Phone Number <span class="required">*</span></label>
+            <input type="tel" id="bespoke-phone" name="customer_phone" class="form-control" placeholder="+1 (555) 000-0000" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="bespoke-email">Email Address <span class="required">*</span></label>
+          <input type="email" id="bespoke-email" name="customer_email" class="form-control" placeholder="genevieve@example.com" required>
+          <span class="helper-hint">Our creative director will send a personalized design proposal and quote within 24 hours.</span>
+        </div>
+
+        <button type="submit" id="bespoke-submit-btn" class="btn btn-primary btn-lg" style="width: 100%; margin-top: var(--spacing-4);">
+          Submit Custom Cake Request
+        </button>
+      </div>
+
+    </form>
+
+  </main>
+
+  <!-- Success Confirmation Modal -->
+  <div class="modal-backdrop" id="bespoke-success-modal">
+    <div class="modal-container" style="text-align: center; padding: var(--spacing-10);">
+      <div class="confirmation-icon" style="margin-bottom: var(--spacing-4);">✦</div>
+      <h3 style="font-size: 2rem; margin-bottom: var(--spacing-2);">Inquiry Received with Pleasure</h3>
+      <p style="color: var(--color-taupe); font-size: var(--font-size-sm); margin-bottom: var(--spacing-4);">
+        Your custom commission request has been recorded in our studio ledger.
+      </p>
+      
+      <div class="order-ref-pill">
+        Inquiry Ref: <span id="bespoke-conf-ref">CR-7412</span>
+      </div>
+
+      <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary); max-width: 480px; margin: 0 auto var(--spacing-8);">
+        Our creative team will review your date availability and sketch a tailored proposal. Expect to hear from us via email within 24 hours.
+      </p>
+
+      <div style="display: flex; gap: var(--spacing-4); justify-content: center;">
+        <a href="index.html" class="btn btn-primary">Return to Home</a>
+        <a href="shop.html" class="btn btn-outline">Explore Catalogue</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-logo">
+            <span class="logo-main">Maison Sucre</span>
+            <span class="logo-sub">Haute Cake Studio</span>
+          </div>
+          <p>Bespoke botanical &amp; contemporary sculptural cakes for life's most exquisite milestones.</p>
+        </div>
+
+        <div class="footer-col">
+          <h5>Navigation</h5>
+          <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="shop.html">The Cake Collection</a>
+            <a href="bespoke.html">Custom Commission Studio</a>
+            <a href="admin.html">Studio Admin Portal</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Studio Location</h5>
+          <div class="footer-links">
+            <span style="color: var(--color-taupe-light); font-size: var(--font-size-sm); line-height: 1.6;">
+              148 Mercer Street<br>
+              Soho, New York, NY 10012<br>
+              Tue – Sun: 10:00 AM – 6:30 PM
+            </span>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Studio Contact</h5>
+          <p style="font-size: var(--font-size-xs); color: var(--color-taupe-light); line-height: 1.6;">
+            Email: atelier@maisonsucre.com<br>
+            Phone: +1 (212) 555-CAKE
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Maison Sucre Haute Cake Studio. All rights reserved.</div>
+        <div><a href="#site-header">Back to Top &uarr;</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Slide-Over Shopping Cart Drawer -->
+  <div class="cart-drawer-backdrop"></div>
+  <div class="cart-drawer" aria-label="Shopping Cart Drawer">
+    <div class="cart-drawer-header">
+      <h3>Your Cake Order</h3>
+      <button class="cart-drawer-close" style="font-size: 1.75rem; color: var(--color-text-muted);">&times;</button>
+    </div>
+
+    <div class="cart-items-container">
+      <!-- Injected dynamically via cart.js -->
+    </div>
+
+    <div class="cart-drawer-footer" style="display: none;">
+      <div class="cart-summary-row total">
+        <span>Order Subtotal:</span>
+        <span class="price drawer-subtotal-price">$0.00</span>
+      </div>
+      <p style="font-size: 0.6875rem; color: var(--color-taupe); margin-bottom: 16px;">Taxes and courier delivery calculated during checkout.</p>
+      <a href="checkout.html" class="btn btn-primary" style="width: 100%;">Proceed to Order Details</a>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules -->
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/bespoke.js"></script>
+
+</body>
+</html>

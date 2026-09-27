@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cake Details — Maison Sucre Haute Cake Studio</title>
+  <meta name="description" content="View cake details, size options, tasting notes, and add to your order.">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/product.css">
+
+  <!-- Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <aside class="announcement-bar" aria-label="Studio Announcement">
+    <span>✦ Handcrafted Daily in Small Batches • 48h Advance Notice Required for Studio Orders</span>
+  </aside>
+
+  <!-- Site Header -->
+  <header class="site-header" id="site-header">
+    <div class="header-container">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="brand-logo" aria-label="Maison Sucre Home">
+        <span class="logo-main">Maison Sucre</span>
+        <span class="logo-sub">Haute Cake Studio • Soho</span>
+      </a>
+
+      <!-- Navigation Menu -->
+      <nav class="nav-menu" aria-label="Main Navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="shop.html" class="nav-link active">The Collection</a>
+        <a href="bespoke.html" class="nav-link">Bespoke Studio</a>
+        <a href="index.html#about" class="nav-link">Our Story</a>
+        <a href="index.html#gallery" class="nav-link">Gallery</a>
+        <a href="index.html#faq" class="nav-link">FAQ</a>
+      </nav>
+
+      <!-- Actions -->
+      <div class="header-actions">
+        <button class="icon-btn cart-btn" data-open-cart aria-label="Shopping Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="badge-counter" style="display: none;">0</span>
+        </button>
+
+        <a href="admin.html" class="btn-admin-nav" title="Staff Portal">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          Studio Admin
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="menu-toggle" aria-label="Toggle Navigation Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-nav-backdrop"></div>
+  <div class="mobile-nav-drawer" aria-label="Mobile Navigation">
+    <div class="mobile-nav-header">
+      <div class="brand-logo">
+        <span class="logo-main" style="font-size: 1.35rem;">Maison Sucre</span>
+        <span class="logo-sub">Haute Cake Studio</span>
+      </div>
+      <button class="mobile-nav-close" style="font-size: 1.75rem; color: var(--color-text-secondary);">&times;</button>
+    </div>
+    <div class="mobile-nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="shop.html" class="nav-link active">The Collection</a>
+      <a href="bespoke.html" class="nav-link">Bespoke Studio</a>
+      <a href="index.html#about" class="nav-link">Our Story</a>
+      <a href="index.html#gallery" class="nav-link">Visual Gallery</a>
+      <a href="index.html#faq" class="nav-link">FAQ</a>
+      <a href="admin.html" class="nav-link" style="color: var(--color-accent-terracotta);">Admin Dashboard</a>
+    </div>
+  </div>
+
+  <!-- Breadcrumbs Bar -->
+  <div style="background-color: var(--color-bg-cream); padding: var(--spacing-4) 0; border-bottom: var(--border-delicate);">
+    <div class="container">
+      <div style="font-size: var(--font-size-xs); color: var(--color-taupe); letter-spacing: var(--letter-spacing-wide); text-transform: uppercase;">
+        <a href="index.html">Home</a> &nbsp;/&nbsp;
+        <a href="shop.html" id="breadcrumb-category">The Collection</a> &nbsp;/&nbsp;
+        <span id="breadcrumb-product-title" style="color: var(--color-text-primary); font-weight: 600;">Loading...</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Details Section -->
+  <section class="product-detail-section">
+    <div class="container">
+      <div class="product-detail-grid">
+        
+        <!-- Left: Image Gallery -->
+        <div class="product-gallery">
+          <div class="product-main-image">
+            <img id="product-main-img" src="" alt="Cake Product Image">
+          </div>
+          <div class="product-thumbnails" id="product-thumbnails-container">
+            <!-- Thumbnails injected via JS -->
+          </div>
+        </div>
+
+        <!-- Right: Configurator & Purchase Panel -->
+        <div class="product-info-wrap">
+          
+          <div class="product-header-meta">
+            <span class="product-category-tag" id="product-category-tag">Signature Collection</span>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px;">
+              <h1 class="product-detail-title" id="product-title">Loading Cake...</h1>
+              <span id="product-availability-badge" class="badge badge-signature">In Stock</span>
+            </div>
+          </div>
+
+          <div class="product-price-box">
+            <div class="product-current-price" id="product-price-display">$0.00</div>
+            <span style="font-size: var(--font-size-xs); color: var(--color-taupe);">+ Taxes calculated at checkout</span>
+          </div>
+
+          <!-- Dietary Tags -->
+          <div class="product-dietary-pills" id="product-dietary-wrap">
+            <span class="product-dietary-pill">Vegetarian</span>
+            <span class="product-dietary-pill">Natural Botanicals</span>
+          </div>
+
+          <!-- Product Description -->
+          <p class="product-detail-desc" id="product-description">
+            Loading description...
+          </p>
+
+          <!-- 1. Size / Tier Selection -->
+          <div class="config-group">
+            <div class="config-label">
+              <span>Select Cake Sizing &amp; Tiers</span>
+              <span style="color: var(--color-taupe); font-weight: 400; text-transform: none;">Portion Guide</span>
+            </div>
+            <div class="config-options-grid">
+              <div class="config-chip size-chip active" data-size="6-inch (8-10 Servings)" data-delta="0">
+                <span class="chip-name">6-inch Standard</span>
+                <span class="chip-sub">Serves 8–10</span>
+              </div>
+              <div class="config-chip size-chip" data-size="8-inch (16-20 Servings)" data-delta="35">
+                <span class="chip-name">8-inch Large (+$35)</span>
+                <span class="chip-sub">Serves 16–20</span>
+              </div>
+              <div class="config-chip size-chip" data-size="2-Tier (28-35 Servings)" data-delta="120">
+                <span class="chip-name">2-Tier Celebration (+$120)</span>
+                <span class="chip-sub">Serves 28–35</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Custom Message on Plaque/Ribbon (Optional) -->
+          <div class="form-group">
+            <label class="form-label" for="cake-inscription-input">
+              Custom Cake Inscription / Plaque (Optional)
+            </label>
+            <div class="inscription-input-wrap">
+              <input type="text" id="cake-inscription-input" class="form-control" maxlength="35" placeholder="e.g., Happy Birthday Eleanor / Forever Yours">
+              <span class="inscription-char-count" id="inscription-char-counter">0/35</span>
+            </div>
+            <span class="helper-hint">Handwritten in gold luster script on an organic white chocolate plaque.</span>
+          </div>
+
+          <!-- Lead Time Alert Notice -->
+          <div class="lead-time-notice">
+            <span style="font-size: 1.25rem;">⏱</span>
+            <span>All cakes require a <strong>minimum 48-hour notice</strong> for baking and temperature resting.</span>
+          </div>
+
+          <!-- Purchase Controls (Qty + Add to Order + Buy Now) -->
+          <div class="purchase-actions-box">
+            <div class="product-qty-select">
+              <button class="qty-btn" id="product-qty-minus">-</button>
+              <input type="text" class="qty-input" id="product-qty-val" value="1" readonly>
+              <button class="qty-btn" id="product-qty-plus">+</button>
+            </div>
+            <button class="btn btn-primary btn-add-to-cart" id="btn-add-cart-detail">Add to Order</button>
+            <button class="btn btn-secondary" id="btn-buy-now">Order Now</button>
+          </div>
+
+          <!-- Accordion Details -->
+          <div class="product-accordion-wrap">
+            
+            <div class="product-acc-item active">
+              <button class="product-acc-trigger">
+                <span>Tasting &amp; Flavor Notes</span>
+                <span class="icon">+</span>
+              </button>
+              <div class="product-acc-body" id="acc-tasting-notes">
+                Layers of slow-baked sponge infused with Tahitian vanilla beans, paired with delicate French buttercream and house-made fruit preserves.
+              </div>
+            </div>
+
+            <div class="product-acc-item">
+              <button class="product-acc-trigger">
+                <span>Portion &amp; Cutting Guide</span>
+                <span class="icon">+</span>
+              </button>
+              <div class="product-acc-body" id="acc-portion-guide">
+                Standard portion sizes are calculated based on generous 1" &times; 2" dessert slices. We recommend slicing with a warm, clean chef's knife.
+              </div>
+            </div>
+
+            <div class="product-acc-item">
+              <button class="product-acc-trigger">
+                <span>Storage &amp; Serving Advice</span>
+                <span class="icon">+</span>
+              </button>
+              <div class="product-acc-body">
+                Keep refrigerated until 1 to 2 hours before serving. Cakes are best enjoyed at room temperature when the Swiss meringue buttercream softens into pure velvet.
+              </div>
+            </div>
+
+            <div class="product-acc-item">
+              <button class="product-acc-trigger">
+                <span>White-Glove Delivery &amp; Pickup</span>
+                <span class="icon">+</span>
+              </button>
+              <div class="product-acc-body">
+                Available for pickup at our Soho Studio (148 Mercer St) or via temperature-controlled courier delivery across Manhattan, Brooklyn, and Queens.
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Cakes Section -->
+  <section class="section section-alt" aria-label="Related Cakes">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Complementary Creations</span>
+        <h2>You May Also Adore</h2>
+      </div>
+
+      <div class="grid grid-3" id="related-products-grid">
+        <!-- Injected via product.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-logo">
+            <span class="logo-main">Maison Sucre</span>
+            <span class="logo-sub">Haute Cake Studio</span>
+          </div>
+          <p>Bespoke botanical &amp; contemporary sculptural cakes for life's most exquisite milestones.</p>
+        </div>
+
+        <div class="footer-col">
+          <h5>Navigation</h5>
+          <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="shop.html">The Cake Collection</a>
+            <a href="bespoke.html">Custom Commission Studio</a>
+            <a href="admin.html">Studio Admin Portal</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Studio Location</h5>
+          <div class="footer-links">
+            <span style="color: var(--color-taupe-light); font-size: var(--font-size-sm); line-height: 1.6;">
+              148 Mercer Street<br>
+              Soho, New York, NY 10012<br>
+              Tue – Sun: 10:00 AM – 6:30 PM
+            </span>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Bespoke Orders</h5>
+          <p style="font-size: var(--font-size-xs); color: var(--color-taupe-light);">
+            Need a tiered cake designed specifically for your event?
+          </p>
+          <a href="bespoke.html" class="btn btn-outline-light btn-sm" style="margin-top: 8px;">Request Bespoke Cake</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Maison Sucre Haute Cake Studio. All rights reserved.</div>
+        <div><a href="#site-header">Back to Top &uarr;</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Slide-Over Shopping Cart Drawer -->
+  <div class="cart-drawer-backdrop"></div>
+  <div class="cart-drawer" aria-label="Shopping Cart Drawer">
+    <div class="cart-drawer-header">
+      <h3>Your Cake Order</h3>
+      <button class="cart-drawer-close" style="font-size: 1.75rem; color: var(--color-text-muted);">&times;</button>
+    </div>
+
+    <div class="cart-items-container">
+      <!-- Injected dynamically via cart.js -->
+    </div>
+
+    <div class="cart-drawer-footer" style="display: none;">
+      <div class="cart-summary-row total">
+        <span>Order Subtotal:</span>
+        <span class="price drawer-subtotal-price">$0.00</span>
+      </div>
+      <p style="font-size: 0.6875rem; color: var(--color-taupe); margin-bottom: 16px;">Taxes and courier delivery calculated during checkout.</p>
+      <a href="checkout.html" class="btn btn-primary" style="width: 100%;">Proceed to Order Details</a>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules -->
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/product.js"></script>
+
+</body>
+</html>

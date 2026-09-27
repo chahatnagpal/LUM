@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmed — Maison Sucre Haute Cake Studio</title>
+  <meta name="description" content="Thank you for your order with Maison Sucre Haute Cake Studio.">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/checkout.css">
+
+  <!-- Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header" id="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand-logo" aria-label="Maison Sucre Home">
+        <span class="logo-main">Maison Sucre</span>
+        <span class="logo-sub">Haute Cake Studio • Soho</span>
+      </a>
+
+      <nav class="nav-menu" aria-label="Main Navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="shop.html" class="nav-link">The Collection</a>
+        <a href="bespoke.html" class="nav-link">Bespoke Studio</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="shop.html" class="btn btn-outline btn-sm">Explore More Cakes</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Confirmation Card Main -->
+  <main class="container confirmation-container">
+    <div class="confirmation-card">
+      
+      <div class="confirmation-icon">✓</div>
+      
+      <span class="eyebrow">Order Successfully Placed</span>
+      <h1 class="editorial-heading" style="margin-bottom: var(--spacing-2);">Thank You For Your Order</h1>
+      <p style="color: var(--color-taupe); font-size: var(--font-size-sm); margin-bottom: var(--spacing-4);">
+        Your cake commission has been submitted to our studio kitchen and recorded in our database.
+      </p>
+
+      <div class="order-ref-pill">
+        Order Reference: <span id="conf-order-number">MS-89210</span>
+      </div>
+
+      <!-- Receipt Breakdown Box -->
+      <div class="confirmation-details-box">
+        <h4 style="margin-bottom: var(--spacing-4); border-bottom: var(--border-delicate); padding-bottom: var(--spacing-2);">
+          Order &amp; Fulfillment Summary
+        </h4>
+
+        <div class="receipt-row">
+          <span>Client Name:</span>
+          <strong id="conf-customer-name">Camille Laurent</strong>
+        </div>
+
+        <div class="receipt-row">
+          <span>Contact Phone:</span>
+          <span id="conf-customer-phone">+1 (555) 000-0000</span>
+        </div>
+
+        <div class="receipt-row">
+          <span>Fulfillment Option:</span>
+          <span id="conf-fulfillment-type">Studio Pickup (Soho)</span>
+        </div>
+
+        <div class="receipt-row">
+          <span>Fulfillment Address:</span>
+          <span id="conf-delivery-address">148 Mercer St, Soho, NY</span>
+        </div>
+
+        <div class="receipt-row">
+          <span>Reserved Date &amp; Time:</span>
+          <strong id="conf-date" style="color: var(--color-accent-terracotta);">Oct 04, 2026 (2:00 PM – 4:00 PM)</strong>
+        </div>
+
+        <div class="receipt-row" id="conf-notes-row">
+          <span>Special Inscription:</span>
+          <span id="conf-notes" style="font-style: italic;">"Happy Birthday"</span>
+        </div>
+
+        <div style="margin-top: var(--spacing-4); padding-top: var(--spacing-4); border-top: var(--border-delicate);">
+          <h5 style="margin-bottom: var(--spacing-3); font-size: var(--font-size-xs); text-transform: uppercase; color: var(--color-taupe);">Ordered Confections</h5>
+          <div id="conf-items-list">
+            <!-- Line items injected via order-confirmation.js -->
+          </div>
+        </div>
+
+        <div style="margin-top: var(--spacing-4); border-top: var(--border-delicate); padding-top: var(--spacing-4);">
+          <div class="receipt-row">
+            <span>Subtotal:</span>
+            <span id="conf-subtotal">$0.00</span>
+          </div>
+          <div class="receipt-row">
+            <span>Courier Delivery:</span>
+            <span id="conf-delivery-fee">Complimentary</span>
+          </div>
+          <div class="receipt-row">
+            <span>Taxes:</span>
+            <span id="conf-tax">$0.00</span>
+          </div>
+          <div class="receipt-row total">
+            <span>Total:</span>
+            <span id="conf-total" style="color: var(--color-accent-gold);">$0.00</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div style="display: flex; gap: var(--spacing-4); justify-content: center; flex-wrap: wrap;">
+        <button id="btn-print-receipt" class="btn btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <rect x="6" y="14" width="12" height="8"></rect>
+          </svg>
+          Print Receipt
+        </button>
+        <a href="shop.html" class="btn btn-primary">Return to Collection</a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container text-center">
+      <div class="brand-logo" style="align-items: center; margin-bottom: var(--spacing-4);">
+        <span class="logo-main">Maison Sucre</span>
+        <span class="logo-sub">Haute Cake Studio</span>
+      </div>
+      <p style="color: var(--color-taupe-light); font-size: var(--font-size-xs);">
+        &copy; 2026 Maison Sucre Haute Cake Studio. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- JavaScript Modules -->
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/order-confirmation.js"></script>
+
+</body>
+</html>

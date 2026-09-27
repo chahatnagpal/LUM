@@ -1,0 +1,303 @@
+/* ==============================================================================
+   MAISON SUCRE — PRODUCT DETAILS STYLES
+   ============================================================================== */
+
+.product-detail-section {
+  padding: var(--spacing-12) 0 var(--spacing-20);
+}
+
+.product-detail-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: var(--spacing-16);
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .product-detail-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-10);
+  }
+}
+
+/* --- Gallery View --- */
+.product-gallery {
+  position: sticky;
+  top: 100px;
+}
+
+.product-main-image {
+  aspect-ratio: 4 / 4.8;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: var(--border-delicate);
+  background-color: var(--color-surface-white);
+  box-shadow: var(--shadow-card);
+  margin-bottom: var(--spacing-4);
+}
+
+.product-main-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.product-main-image:hover img {
+  transform: scale(1.03);
+}
+
+.product-thumbnails {
+  display: flex;
+  gap: var(--spacing-3);
+  overflow-x: auto;
+  padding-bottom: var(--spacing-2);
+}
+
+.thumbnail-btn {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-xs);
+  overflow: hidden;
+  border: 2px solid transparent;
+  background-color: var(--color-bg-cream);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color var(--transition-fast);
+}
+
+.thumbnail-btn.active {
+  border-color: var(--color-accent-gold);
+}
+
+.thumbnail-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --- Product Configurator & Info --- */
+.product-info-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-header-meta {
+  margin-bottom: var(--spacing-4);
+}
+
+.product-detail-title {
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  line-height: 1.15;
+  margin-bottom: var(--spacing-3);
+}
+
+.product-price-box {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-3);
+  margin-bottom: var(--spacing-6);
+}
+
+.product-current-price {
+  font-family: var(--font-serif-display);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.product-dietary-pills {
+  display: flex;
+  gap: var(--spacing-2);
+  flex-wrap: wrap;
+  margin-bottom: var(--spacing-6);
+}
+
+.product-dietary-pill {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background-color: var(--color-bg-cream);
+  color: var(--color-taupe-dark);
+  padding: 4px 10px;
+  border-radius: var(--radius-xs);
+  border: var(--border-delicate);
+}
+
+.product-detail-desc {
+  font-size: var(--font-size-base);
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-8);
+  padding-bottom: var(--spacing-6);
+  border-bottom: var(--border-delicate);
+}
+
+/* --- Options Configurator --- */
+.config-group {
+  margin-bottom: var(--spacing-6);
+}
+
+.config-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-3);
+}
+
+.config-options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: var(--spacing-3);
+}
+
+.config-chip {
+  padding: var(--spacing-3) var(--spacing-4);
+  border: var(--border-delicate);
+  border-radius: var(--radius-xs);
+  background-color: var(--color-surface-white);
+  cursor: pointer;
+  text-align: center;
+  transition: all var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.config-chip .chip-name {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.config-chip .chip-sub {
+  font-size: 0.6875rem;
+  color: var(--color-taupe);
+}
+
+.config-chip:hover {
+  border-color: var(--color-taupe);
+  background-color: var(--color-blush-light);
+}
+
+.config-chip.active {
+  border-color: var(--color-espresso);
+  background-color: var(--color-espresso);
+}
+
+.config-chip.active .chip-name,
+.config-chip.active .chip-sub {
+  color: var(--color-bg-ivory);
+}
+
+/* Inscription Input */
+.inscription-input-wrap {
+  position: relative;
+}
+
+.inscription-char-count {
+  position: absolute;
+  right: 12px;
+  bottom: 8px;
+  font-size: 0.6875rem;
+  color: var(--color-text-light);
+}
+
+/* Purchase Actions Box */
+.purchase-actions-box {
+  display: flex;
+  gap: var(--spacing-4);
+  margin-top: var(--spacing-6);
+  margin-bottom: var(--spacing-8);
+}
+
+.product-qty-select {
+  display: inline-flex;
+  align-items: center;
+  border: var(--border-delicate);
+  border-radius: var(--radius-xs);
+  background-color: var(--color-surface-white);
+  height: 52px;
+}
+
+.product-qty-select .qty-btn {
+  width: 44px;
+  height: 100%;
+  font-size: 1.125rem;
+}
+
+.product-qty-select .qty-input {
+  width: 44px;
+  font-size: var(--font-size-sm);
+}
+
+.btn-add-to-cart {
+  flex-grow: 1;
+  height: 52px;
+}
+
+/* Lead Time Alert Box */
+.lead-time-notice {
+  background-color: var(--color-blush-light);
+  border-radius: var(--radius-xs);
+  padding: var(--spacing-4) var(--spacing-5);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  font-size: var(--font-size-xs);
+  color: var(--color-taupe-dark);
+  margin-bottom: var(--spacing-8);
+}
+
+/* Product Accordions */
+.product-accordion-wrap {
+  border-top: var(--border-delicate);
+  display: flex;
+  flex-direction: column;
+}
+
+.product-acc-item {
+  border-bottom: var(--border-delicate);
+}
+
+.product-acc-trigger {
+  width: 100%;
+  padding: var(--spacing-4) 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.product-acc-trigger span.icon {
+  font-size: 1.125rem;
+  transition: transform var(--transition-fast);
+}
+
+.product-acc-item.active .product-acc-trigger span.icon {
+  transform: rotate(45deg);
+}
+
+.product-acc-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-smooth);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.product-acc-item.active .product-acc-body {
+  max-height: 300px;
+  padding-bottom: var(--spacing-4);
+}
