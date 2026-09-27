@@ -127,6 +127,10 @@
           <div class="hero-actions">
             <a href="shop.html" class="btn btn-primary btn-lg">Explore Collection</a>
             <a href="bespoke.html" class="btn btn-secondary btn-lg">Book a Bespoke Cake</a>
+            <button class="btn-video-hero" id="btn-hero-watch-film" aria-label="Watch Atelier Film">
+              <span class="play-icon-circle">▶</span>
+              <span>Watch Film</span>
+            </button>
           </div>
 
           <div class="hero-trust-row">
@@ -144,8 +148,14 @@
 
         <!-- Right Visual Showcase -->
         <div class="hero-visual">
-          <div class="hero-image-frame">
-            <img src="https://images.unsplash.com/photo-1535141192574-5d4897c13136?auto=format&fit=crop&w=1000&q=85" alt="Sculptural Tiered Wedding Cake by Maison Sucre">
+          <div class="hero-media-toggle" aria-label="Media view switcher">
+            <button class="hero-media-btn active" id="btn-hero-photo">Photo</button>
+            <button class="hero-media-btn" id="btn-hero-video">Live Film ✦</button>
+          </div>
+
+          <div class="hero-image-frame" id="hero-media-frame">
+            <img id="hero-img-element" src="https://images.unsplash.com/photo-1535141192574-5d4897c13136?auto=format&fit=crop&w=1000&q=85" alt="Sculptural Tiered Wedding Cake by Maison Sucre">
+            <video id="hero-video-element" src="https://assets.mixkit.co/videos/preview/mixkit-decorating-a-cake-with-chocolate-cream-41484-large.mp4" poster="https://images.unsplash.com/photo-1535141192574-5d4897c13136?auto=format&fit=crop&w=1000&q=85" autoplay muted loop playsinline style="display: none;"></video>
           </div>
 
           <!-- Floating Info Card -->
@@ -237,6 +247,55 @@
           </div>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- The Atelier in Motion / Cinema Feature Section -->
+  <section class="atelier-cinema-section" id="cinema" aria-label="The Atelier in Motion">
+    <div class="container atelier-cinema-container">
+      <div class="cinema-header">
+        <span class="eyebrow">The Craft in Motion</span>
+        <h2>The Art &amp; Discipline of Sugar Sculpture</h2>
+        <p>
+          Witness the quiet choreography of our Soho kitchen: slow-steeped vanilla beans, hand-piped Lambeth ruffles, and delicate 24k gold leaf application.
+        </p>
+      </div>
+
+      <div class="cinema-player-frame">
+        <video id="atelier-cinema-video" class="cinema-video-el" src="https://assets.mixkit.co/videos/preview/mixkit-decorating-a-cake-with-chocolate-cream-41484-large.mp4" poster="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1200&q=85" loop playsinline muted autoplay></video>
+        
+        <div class="cinema-controls-bar">
+          <div style="display: flex; gap: var(--spacing-3); align-items: center;">
+            <button id="cinema-play-toggle" class="cinema-btn" aria-label="Toggle Play/Pause">
+              <span id="cinema-play-icon">⏸</span>
+              <span id="cinema-play-text">Pause</span>
+            </button>
+            <button id="cinema-sound-toggle" class="cinema-btn" aria-label="Toggle Sound">
+              <span id="cinema-sound-icon">🔇</span>
+              <span id="cinema-sound-text">Unmute</span>
+            </button>
+          </div>
+          
+          <div style="color: var(--color-taupe-light); font-size: var(--font-size-xs); font-family: var(--font-serif-display); font-style: italic;">
+            Maison Sucre Haute Confectionery Reel &bull; 4K
+          </div>
+        </div>
+      </div>
+
+      <div class="cinema-badges-row">
+        <div class="cinema-badge-item">
+          <h4>Single-Origin 70% Valrhona</h4>
+          <p>Gently tempered Guanaja dark chocolate ganache whipped into velvet crumb.</p>
+        </div>
+        <div class="cinema-badge-item">
+          <h4>Organic Hand-Pressed Flora</h4>
+          <p>Each viola, chamomile, and pansy carefully cured and positioned by hand.</p>
+        </div>
+        <div class="cinema-badge-item">
+          <h4>Normandy Churned Cream</h4>
+          <p>84% butterfat dairy giving our Swiss meringue its legendary silky texture.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -550,6 +609,23 @@
       </div>
       <p style="font-size: 0.6875rem; color: var(--color-taupe); margin-bottom: 16px;">Taxes and courier delivery calculated during checkout.</p>
       <a href="checkout.html" class="btn btn-primary" style="width: 100%;">Proceed to Order Details</a>
+    </div>
+  </div>
+
+  <!-- Atelier Cinema Lightbox Modal -->
+  <div class="modal-backdrop" id="atelier-film-modal">
+    <div class="modal-container" style="max-width: 900px; padding: 0; background: #0E0C0B; border: 1px solid rgba(197, 160, 89, 0.4); overflow: hidden;">
+      <div style="position: relative; aspect-ratio: 16 / 9; background: #000;">
+        <video id="modal-cinema-video" style="width: 100%; height: 100%; object-fit: cover;" src="https://assets.mixkit.co/videos/preview/mixkit-decorating-a-cake-with-chocolate-cream-41484-large.mp4" controls playsinline></video>
+        <button class="modal-close-btn" style="position: absolute; top: 12px; right: 12px; z-index: 10; background: rgba(0,0,0,0.6); color: #fff; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">&times;</button>
+      </div>
+      <div style="padding: var(--spacing-4) var(--spacing-6); display: flex; justify-content: space-between; align-items: center; color: var(--color-bg-ivory); background: #161311;">
+        <div>
+          <h4 style="font-family: var(--font-serif-display); font-size: 1.25rem; color: var(--color-bg-ivory); margin: 0;">Maison Sucre — The Atelier Craft</h4>
+          <span style="font-size: 0.75rem; color: var(--color-rose-nude);">Soho, New York &bull; 4K Cinematic Masterclass</span>
+        </div>
+        <a href="shop.html" class="btn btn-gold btn-sm">Explore Cakes</a>
+      </div>
     </div>
   </div>
 

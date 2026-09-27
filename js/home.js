@@ -81,7 +81,92 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   });
 
-  // 4. Newsletter Subscription Form Handler
+  // 4. Hero Media Switcher (Photo vs Live Film)
+  const btnHeroPhoto = document.getElementById('btn-hero-photo');
+  const btnHeroVideo = document.getElementById('btn-hero-video');
+  const heroImg = document.getElementById('hero-img-element');
+  const heroVid = document.getElementById('hero-video-element');
+
+  if (btnHeroPhoto && btnHeroVideo && heroImg && heroVid) {
+    btnHeroPhoto.addEventListener('click', () => {
+      btnHeroPhoto.classList.add('active');
+      btnHeroVideo.classList.remove('active');
+      heroImg.style.display = 'block';
+      heroVid.style.display = 'none';
+      heroVid.pause();
+    });
+
+    btnHeroVideo.addEventListener('click', () => {
+      btnHeroVideo.classList.add('active');
+      btnHeroPhoto.classList.remove('active');
+      heroImg.style.display = 'none';
+      heroVid.style.display = 'block';
+      heroVid.play().catch(err => console.log('Video autoplay handled:', err));
+    });
+  }
+
+  // 5. Hero "Watch Film" CTA Modal Lightbox
+  const btnWatchFilm = document.getElementById('btn-hero-watch-film');
+  const modalVideo = document.getElementById('modal-cinema-video');
+  if (btnWatchFilm) {
+    btnWatchFilm.addEventListener('click', () => {
+      window.UI.openModal('atelier-film-modal');
+      if (modalVideo) {
+        modalVideo.currentTime = 0;
+        modalVideo.play().catch(e => console.log(e));
+      }
+    });
+  }
+
+  // Stop modal video when closing modal
+  const filmModal = document.getElementById('atelier-film-modal');
+  if (filmModal && modalVideo) {
+    filmModal.querySelectorAll('.modal-close-btn').forEach(btn => {
+      btn.addEventListener('click', () => modalVideo.pause());
+    });
+    filmModal.addEventListener('click', (e) => {
+      if (e.target === filmModal) modalVideo.pause();
+    });
+  }
+
+  // 6. Atelier Cinema Feature Section Video Controls (Play/Pause & Sound)
+  const cinemaVideo = document.getElementById('atelier-cinema-video');
+  const cinemaPlayBtn = document.getElementById('cinema-play-toggle');
+  const cinemaPlayIcon = document.getElementById('cinema-play-icon');
+  const cinemaPlayText = document.getElementById('cinema-play-text');
+  const cinemaSoundBtn = document.getElementById('cinema-sound-toggle');
+  const cinemaSoundIcon = document.getElementById('cinema-sound-icon');
+  const cinemaSoundText = document.getElementById('cinema-sound-text');
+
+  if (cinemaVideo && cinemaPlayBtn) {
+    cinemaPlayBtn.addEventListener('click', () => {
+      if (cinemaVideo.paused) {
+        cinemaVideo.play();
+        if (cinemaPlayIcon) cinemaPlayIcon.textContent = '⏸';
+        if (cinemaPlayText) cinemaPlayText.textContent = 'Pause';
+      } else {
+        cinemaVideo.pause();
+        if (cinemaPlayIcon) cinemaPlayIcon.textContent = '▶';
+        if (cinemaPlayText) cinemaPlayText.textContent = 'Play';
+      }
+    });
+  }
+
+  if (cinemaVideo && cinemaSoundBtn) {
+    cinemaSoundBtn.addEventListener('click', () => {
+      if (cinemaVideo.muted) {
+        cinemaVideo.muted = false;
+        if (cinemaSoundIcon) cinemaSoundIcon.textContent = '🔊';
+        if (cinemaSoundText) cinemaSoundText.textContent = 'Mute';
+      } else {
+        cinemaVideo.muted = true;
+        if (cinemaSoundIcon) cinemaSoundIcon.textContent = '🔇';
+        if (cinemaSoundText) cinemaSoundText.textContent = 'Unmute';
+      }
+    });
+  }
+
+  // 7. Newsletter Subscription Form Handler
   const newsletterForm = document.getElementById('newsletter-form');
   if (newsletterForm) {
     newsletterForm.addEventListener('submit', (e) => {

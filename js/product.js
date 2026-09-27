@@ -58,19 +58,50 @@ class ProductDetailsController {
     }
 
     const thumbsContainer = document.getElementById('product-thumbnails-container');
+    const mainVideo = document.getElementById('product-main-video');
+    
     if (thumbsContainer) {
       const gallery = p.gallery_images && p.gallery_images.length > 0 ? p.gallery_images : [p.image_url];
-      thumbsContainer.innerHTML = gallery.map((imgUrl, idx) => `
-        <button class="thumbnail-btn ${idx === 0 ? 'active' : ''}" data-img-url="${imgUrl}">
+      
+      let thumbsHtml = gallery.map((imgUrl, idx) => `
+        <button class="thumbnail-btn ${idx === 0 ? 'active' : ''}" data-type="image" data-img-url="${imgUrl}">
           <img src="${imgUrl}" alt="${p.name} view ${idx + 1}">
         </button>
       `).join('');
+
+      // Add Video Thumbnail
+      thumbsHtml += `
+        <button class="thumbnail-btn" data-type="video" title="Watch 360° Cake Motion Film" style="position: relative; background: #161311; display: flex; align-items: center; justify-content: center;">
+          <img src="${p.image_url}" alt="Video preview" style="opacity: 0.45; filter: blur(0.5px);">
+          <span style="position: absolute; color: #fff; background: var(--color-accent-gold); width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; padding-left: 2px;">▶</span>
+        </button>
+      `;
+
+      thumbsContainer.innerHTML = thumbsHtml;
 
       thumbsContainer.querySelectorAll('.thumbnail-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           thumbsContainer.querySelectorAll('.thumbnail-btn').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
-          if (mainImg) mainImg.src = btn.getAttribute('data-img-url');
+
+          const type = btn.getAttribute('data-type');
+          if (type === 'video') {
+            if (mainImg) mainImg.style.display = 'none';
+            if (mainVideo) {
+              mainVideo.style.display = 'block';
+              mainVideo.currentTime = 0;
+              mainVideo.play().catch(e => console.log(e));
+            }
+          } else {
+            if (mainVideo) {
+              mainVideo.style.display = 'none';
+              mainVideo.pause();
+            }
+            if (mainImg) {
+              mainImg.style.display = 'block';
+              mainImg.src = btn.getAttribute('data-img-url');
+            }
+          }
         });
       });
     }
